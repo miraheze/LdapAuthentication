@@ -16,10 +16,12 @@
  * http://www.gnu.org/copyleft/gpl.html
  */
 
+namespace MediaWiki\Extension\LdapAuthentication;
+
 use MediaWiki\Installer\DatabaseUpdater;
 use MediaWiki\Installer\Hook\LoadExtensionSchemaUpdatesHook;
 
-class LdapAuthenticationSchemaHooks implements LoadExtensionSchemaUpdatesHook {
+class SchemaHooks implements LoadExtensionSchemaUpdatesHook {
 
 	/**
 	 * @param DatabaseUpdater $updater
@@ -31,5 +33,4 @@ class LdapAuthenticationSchemaHooks implements LoadExtensionSchemaUpdatesHook {
 			"$base/schema/{$updater->getDB()->getType()}/tables-generated.sql"
 		);
 	}
-
 }

@@ -16,13 +16,15 @@
  * http://www.gnu.org/copyleft/gpl.html
  */
 
+namespace MediaWiki\Extension\LdapAuthentication;
+
 use MediaWiki\Block\DatabaseBlock;
 use MediaWiki\Hook\BlockIpCompleteHook;
 use MediaWiki\Hook\UnblockUserCompleteHook;
 use MediaWiki\User\User;
 use MediaWiki\User\UserIdentity;
 
-class LdapAuthenticationHooks implements
+class Hooks implements
 	BlockIpCompleteHook,
 	UnblockUserCompleteHook
 {
@@ -167,5 +169,4 @@ class LdapAuthenticationHooks implements
 		define( "SENSITIVE", 2 );
 		define( "HIGHLYSENSITIVE", 3 );
 	}
-
 }
