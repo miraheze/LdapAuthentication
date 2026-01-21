@@ -1,12 +1,12 @@
 <?php
 
-namespace MediaWiki\Extension\LdapAuthentication\Tests\Unit;
+namespace Miraheze\LdapAuthentication\Tests\Unit;
 
-use MediaWiki\Extension\LdapAuthentication\Hooks\HookRunner;
+use Miraheze\LdapAuthentication\Hooks\HookRunner;
 use MediaWiki\Tests\HookContainer\HookRunnerTestBase;
 
 /**
- * @covers \MediaWiki\Extension\LdapAuthentication\Hooks\HookRunner
+ * @covers \Miraheze\LdapAuthentication\Hooks\HookRunner
  */
 class HookRunnerTest extends HookRunnerTestBase {
 

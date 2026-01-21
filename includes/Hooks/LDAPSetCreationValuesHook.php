@@ -1,8 +1,8 @@
 <?php
 
-namespace MediaWiki\Extension\LdapAuthentication\Hooks;
+namespace Miraheze\LdapAuthentication\Hooks;
 
-use MediaWiki\Extension\LdapAuthentication\LdapAuthenticationPlugin;
+use Miraheze\LdapAuthentication\LdapAuthenticationPlugin;
 
 /**
  * This is a hook handler interface, see docs/Hooks.md in core.

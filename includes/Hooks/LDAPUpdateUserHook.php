@@ -1,6 +1,6 @@
 <?php
 
-namespace MediaWiki\Extension\LdapAuthentication\Hooks;
+namespace Miraheze\LdapAuthentication\Hooks;
 
 use MediaWiki\User\User;
 

@@ -19,14 +19,14 @@
  * @file
  */
 
-namespace MediaWiki\Extension\LdapAuthentication\Maintenance;
+namespace Miraheze\LdapAuthentication\Maintenance;
 
 use MediaWiki\Context\RequestContext;
-use MediaWiki\Extension\LdapAuthentication\LdapAuthenticationPlugin;
-use MediaWiki\Extension\LdapAuthentication\LdapPrimaryAuthenticationProvider;
 use MediaWiki\Maintenance\Maintenance;
 use MediaWiki\Permissions\UltimateAuthority;
 use MediaWiki\User\User;
+use Miraheze\LdapAuthentication\LdapAuthenticationPlugin;
+use Miraheze\LdapAuthentication\LdapPrimaryAuthenticationProvider;
 
 /**
  * Attach an existing LDAP account to the local wiki with all expected log

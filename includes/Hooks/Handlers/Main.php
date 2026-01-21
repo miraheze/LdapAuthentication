@@ -16,15 +16,15 @@
  * http://www.gnu.org/copyleft/gpl.html
  */
 
-namespace MediaWiki\Extension\LdapAuthentication;
+namespace Miraheze\LdapAuthentication\Hooks\Handlers;
 
 use MediaWiki\Block\DatabaseBlock;
 use MediaWiki\Hook\BlockIpCompleteHook;
 use MediaWiki\Hook\UnblockUserCompleteHook;
-use MediaWiki\User\User;
 use MediaWiki\User\UserIdentity;
+use Miraheze\LdapAuthentication\LdapAuthenticationPlugin;
 
-class Hooks implements
+class Main implements
 	BlockIpCompleteHook,
 	UnblockUserCompleteHook
 {
@@ -35,7 +35,7 @@ class Hooks implements
 	 *
 	 * @return LdapAuthenticationPlugin|false LDAP connection or false if initialization fails
 	 */
-	private static function getLDAP() {
+	private static function getLDAP(): LdapAuthenticationPlugin|false {
 		$ldap = LdapAuthenticationPlugin::getInstance();
 		if ( $ldap->ldapconn === null ) {
 			if ( !$ldap->connect() ) {
@@ -67,8 +67,8 @@ class Hooks implements
 	 * @param bool $lock True to lock, False to unlock
 	 * @return bool True if successful, false otherwise
 	 */
-	private static function setLdapLockStatus( UserIdentity $user, $lock ) {
-		$ldap = static::getLDAP();
+	private static function setLdapLockStatus( UserIdentity $user, bool $lock ): bool {
+		$ldap = self::getLDAP();
 		if ( !$ldap ) {
 			wfDebugLog( 'ldap', 'Failed to initialize LDAP connection' );
 			return false;
@@ -116,24 +116,21 @@ class Hooks implements
 	 * block is made against a specific user. Alternately, unlock the account
 	 * if a new block is placed replacing a prior indefinite block.
 	 *
-	 * @param DatabaseBlock $block The block object that was saved
-	 * @param User $user The user who performed the unblock
-	 * @param DatabaseBlock|null $prior Previous block that was replaced
-	 * @return bool True if successful, false otherwise
+	 * @inheritDoc
 	 */
-	public function onBlockIpComplete( $block, $user, $prior ) {
+	public function onBlockIpComplete( $block, $user, $priorBlock ) {
 		global $wgLDAPLockOnBlock;
 		if ( $wgLDAPLockOnBlock ) {
 			if ( $block->getType() === DatabaseBlock::TYPE_USER
-				&& $block->getExpiry() === 'infinity'
+				&& $block->isIndefinite()
 				&& $block->isSitewide()
 			) {
 				// @phan-suppress-next-line PhanTypeMismatchArgumentNullable $user can't be null
-				return static::setLdapLockStatus( $block->getTargetUserIdentity(), true );
-			} elseif ( $prior ) {
+				return self::setLdapLockStatus( $block->getTargetUserIdentity(), true );
+			} elseif ( $priorBlock ) {
 				// New block replaced a prior block. Process the prior block
 				// as though it was explicitly removed.
-				return $this->onUnblockUserComplete( $prior, $user );
+				return $this->onUnblockUserComplete( $priorBlock, $user );
 			}
 		}
 	}
@@ -142,31 +139,17 @@ class Hooks implements
 	 * Inspect removed blocks and unlock the backing LDAP account when an
 	 * indefinite block is lifted against a specific user.
 	 *
-	 * @param DatabaseBlock $block the block object that was saved
-	 * @param User $user The user who performed the unblock
-	 * @return bool True if successful, false otherwise
+	 * @inheritDoc
 	 */
 	public function onUnblockUserComplete( $block, $user ) {
 		global $wgLDAPLockOnBlock;
 		if ( $wgLDAPLockOnBlock
 			&& $block->getType() === DatabaseBlock::TYPE_USER
-			&& $block->getExpiry() === 'infinity'
+			&& $block->isIndefinite()
 			&& $block->isSitewide()
 		) {
 			// @phan-suppress-next-line PhanTypeMismatchArgumentNullable $user can't be null
-			return static::setLdapLockStatus( $block->getTargetUserIdentity(), false );
+			return self::setLdapLockStatus( $block->getTargetUserIdentity(), false );
 		}
-	}
-
-	public static function onRegistration() {
-		// constants for search base
-		define( "GROUPDN", 0 );
-		define( "USERDN", 1 );
-		define( "DEFAULTDN", 2 );
-
-		// constants for error reporting
-		define( "NONSENSITIVE", 1 );
-		define( "SENSITIVE", 2 );
-		define( "HIGHLYSENSITIVE", 3 );
 	}
 }

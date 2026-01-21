@@ -21,7 +21,7 @@
  * @ingroup Auth
  */
 
-namespace MediaWiki\Extension\LdapAuthentication;
+namespace Miraheze\LdapAuthentication;
 
 use MediaWiki\Auth\AbstractPasswordPrimaryAuthenticationProvider;
 use MediaWiki\Auth\AuthenticationRequest;

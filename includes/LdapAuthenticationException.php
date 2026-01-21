@@ -18,7 +18,7 @@
  * @file
  */
 
-namespace MediaWiki\Extension\LdapAuthentication;
+namespace Miraheze\LdapAuthentication;
 
 use RuntimeException;
 

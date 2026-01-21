@@ -1,6 +1,6 @@
 <?php
 
-namespace MediaWiki\Extension\LdapAuthentication\Hooks;
+namespace Miraheze\LdapAuthentication\Hooks;
 
 /**
  * This is a hook handler interface, see docs/Hooks.md in core.

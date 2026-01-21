@@ -18,13 +18,12 @@
  * http://www.gnu.org/copyleft/gpl.html
  */
 
-namespace MediaWiki\Extension\LdapAuthentication;
+namespace Miraheze\LdapAuthentication;
 
 use MediaWiki\Context\RequestContext;
-use MediaWiki\Extension\LdapAuthentication\Hooks\HookRunner;
-use MediaWiki\Extension\LdapAuthentication\LdapAuthenticationException;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\User\User;
+use Miraheze\LdapAuthentication\Hooks\HookRunner;
 use Wikimedia\AtEase\AtEase;
 
 class LdapAuthenticationPlugin {
@@ -75,7 +74,7 @@ class LdapAuthenticationPlugin {
 	 */
 	public static function getInstance() {
 		if ( self::$instance === null ) {
-			self::$instance = new LdapAuthenticationPlugin;
+			self::$instance = new self;
 		}
 		return self::$instance;
 	}

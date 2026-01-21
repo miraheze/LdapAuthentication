@@ -1,13 +1,16 @@
 {
 	"name": "LDAP Authentication Plugin",
-	"version": "2.2.0",
-	"author": "Ryan Lane",
+	"version": "2.3.0",
+	"author": [
+		"Universal Omega",
+		"Ryan Lane"
+	],
 	"url": "https://www.mediawiki.org/wiki/Extension:LDAP_Authentication",
 	"descriptionmsg": "ldapauthentication-desc",
 	"license-name": "GPL-2.0-or-later",
 	"type": "other",
 	"requires": {
-		"MediaWiki": ">= 1.43"
+		"MediaWiki": ">= 1.44"
 	},
 	"MessagesDirs": {
 		"LdapAuthentication": [
@@ -15,8 +18,8 @@
 		]
 	},
 	"AutoloadNamespaces": {
-		"MediaWiki\\Extension\\LdapAuthentication\\": "includes/",
-		"MediaWiki\\Extension\\LdapAuthentication\\Maintenance\\": "maintenance/"
+		"Miraheze\\LdapAuthentication\\": "includes/",
+		"Miraheze\\LdapAuthentication\\Maintenance\\": "maintenance/"
 	},
 	"Hooks": {
 		"BlockIpComplete": "main",
@@ -25,10 +28,10 @@
 	},
 	"HookHandlers": {
 		"main": {
-			"class": "MediaWiki\\Extension\\LdapAuthentication\\Hooks"
+			"class": "Miraheze\\LdapAuthentication\\Hooks"
 		},
 		"schema": {
-			"class": "MediaWiki\\Extension\\LdapAuthentication\\SchemaHooks"
+			"class": "Miraheze\\LdapAuthentication\\SchemaHooks"
 		}
 	},
 	"config_prefix": "wgLDAP",
@@ -163,6 +166,6 @@
 			"value": ""
 		}
 	},
-	"callback": "MediaWiki\\Extension\\LdapAuthentication\\Hooks::onRegistration",
+	"callback": "Miraheze\\LdapAuthentication\\Hooks::onRegistration",
 	"manifest_version": 2
 }
