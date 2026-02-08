@@ -18,6 +18,8 @@
  * http://www.gnu.org/copyleft/gpl.html
  */
 
+namespace MediaWiki\Extension\LdapAuthentication;
+
 use MediaWiki\Context\RequestContext;
 use MediaWiki\Extension\LdapAuthentication\Hooks\HookRunner;
 use MediaWiki\Extension\LdapAuthentication\LdapAuthenticationException;
