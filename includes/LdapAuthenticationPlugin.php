@@ -23,7 +23,6 @@ use MediaWiki\Extension\LdapAuthentication\Hooks\HookRunner;
 use MediaWiki\Extension\LdapAuthentication\LdapAuthenticationException;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\User\User;
-use Wikimedia\AtEase\AtEase;
 
 class LdapAuthenticationPlugin {
 
@@ -85,9 +84,7 @@ class LdapAuthenticationPlugin {
 	 * @return resource|false
 	 */
 	public static function ldap_connect( $hostname = null, $port = 389 ) {
-		AtEase::suppressWarnings();
-		$ret = ldap_connect( $hostname, $port );
-		AtEase::restoreWarnings();
+		$ret = @ldap_connect( $hostname, $port );
 		return $ret;
 	}
 
@@ -99,9 +96,7 @@ class LdapAuthenticationPlugin {
 	 * @return bool
 	 */
 	public static function ldap_bind( $ldapconn, $dn = null, $password = null ) {
-		AtEase::suppressWarnings();
-		$ret = ldap_bind( $ldapconn, $dn, $password );
-		AtEase::restoreWarnings();
+		$ret = @ldap_bind( $ldapconn, $dn, $password );
 		return $ret;
 	}
 
@@ -112,9 +107,7 @@ class LdapAuthenticationPlugin {
 	 */
 	public static function ldap_unbind( $ldapconn ) {
 		if ( $ldapconn ) {
-			AtEase::suppressWarnings();
-			$ret = ldap_unbind( $ldapconn );
-			AtEase::restoreWarnings();
+			$ret = @ldap_unbind( $ldapconn );
 		} else {
 			$ret = false;
 		}
@@ -129,9 +122,7 @@ class LdapAuthenticationPlugin {
 	 * @return bool
 	 */
 	public static function ldap_modify( $ldapconn, $dn, $entry ) {
-		AtEase::suppressWarnings();
-		$ret = ldap_modify( $ldapconn, $dn, $entry );
-		AtEase::restoreWarnings();
+		$ret = @ldap_modify( $ldapconn, $dn, $entry );
 		return $ret;
 	}
 
@@ -143,9 +134,7 @@ class LdapAuthenticationPlugin {
 	 * @return bool
 	 */
 	public static function ldap_add( $ldapconn, $dn, $entry ) {
-		AtEase::suppressWarnings();
-		$ret = ldap_add( $ldapconn, $dn, $entry );
-		AtEase::restoreWarnings();
+		$ret = @ldap_add( $ldapconn, $dn, $entry );
 		return $ret;
 	}
 
@@ -156,9 +145,7 @@ class LdapAuthenticationPlugin {
 	 * @return bool
 	 */
 	public static function ldap_delete( $ldapconn, $dn ) {
-		AtEase::suppressWarnings();
-		$ret = ldap_delete( $ldapconn, $dn );
-		AtEase::restoreWarnings();
+		$ret = @ldap_delete( $ldapconn, $dn );
 		return $ret;
 	}
 
@@ -184,8 +171,7 @@ class LdapAuthenticationPlugin {
 		$timelimit = null,
 		$deref = null
 	) {
-		AtEase::suppressWarnings();
-		$ret = ldap_search(
+		$ret = @ldap_search(
 			$ldapconn,
 			$basedn,
 			$filter,
@@ -195,7 +181,6 @@ class LdapAuthenticationPlugin {
 			$timelimit,
 			$deref
 		);
-		AtEase::restoreWarnings();
 		return $ret;
 	}
 
@@ -221,8 +206,7 @@ class LdapAuthenticationPlugin {
 		$timelimit = null,
 		$deref = null
 	) {
-		AtEase::suppressWarnings();
-		$ret = ldap_read(
+		$ret = @ldap_read(
 			$ldapconn,
 			$basedn,
 			$filter,
@@ -232,7 +216,6 @@ class LdapAuthenticationPlugin {
 			$timelimit,
 			$deref
 		);
-		AtEase::restoreWarnings();
 		return $ret;
 	}
 
@@ -258,8 +241,7 @@ class LdapAuthenticationPlugin {
 		$timelimit = null,
 		$deref = null
 	) {
-		AtEase::suppressWarnings();
-		$ret = ldap_list(
+		$ret = @ldap_list(
 			$ldapconn,
 			$basedn,
 			$filter,
@@ -269,7 +251,6 @@ class LdapAuthenticationPlugin {
 			$timelimit,
 			$deref
 		);
-		AtEase::restoreWarnings();
 		return $ret;
 	}
 
@@ -281,9 +262,7 @@ class LdapAuthenticationPlugin {
 	 * @phan-return array<int|string,int|array<int|string,string|int|array<int|string,int|string>>>
 	 */
 	public static function ldap_get_entries( $ldapconn, $resultid ) {
-		AtEase::suppressWarnings();
-		$ret = ldap_get_entries( $ldapconn, $resultid );
-		AtEase::restoreWarnings();
+		$ret = @ldap_get_entries( $ldapconn, $resultid );
 		return $ret;
 	}
 
@@ -294,9 +273,7 @@ class LdapAuthenticationPlugin {
 	 * @return int
 	 */
 	public static function ldap_count_entries( $ldapconn, $resultid ) {
-		AtEase::suppressWarnings();
-		$ret = ldap_count_entries( $ldapconn, $resultid );
-		AtEase::restoreWarnings();
+		$ret = @ldap_count_entries( $ldapconn, $resultid );
 		return $ret;
 	}
 
@@ -306,9 +283,7 @@ class LdapAuthenticationPlugin {
 	 * @return int
 	 */
 	public static function ldap_errno( $ldapconn ) {
-		AtEase::suppressWarnings();
-		$ret = ldap_errno( $ldapconn );
-		AtEase::restoreWarnings();
+		$ret = @ldap_errno( $ldapconn );
 		return $ret;
 	}
 
