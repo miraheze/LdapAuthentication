@@ -19,16 +19,12 @@
  * @file
  */
 
-if ( getenv( 'MW_INSTALL_PATH' ) ) {
-	$IP = getenv( 'MW_INSTALL_PATH' );
-} else {
-	$IP = __DIR__ . '/../../..';
-}
-require_once "$IP/maintenance/Maintenance.php";
+namespace MediaWiki\Extension\LdapAuthentication\Maintenance;
 
 use MediaWiki\Context\RequestContext;
+use MediaWiki\Extension\LdapAuthentication\LdapAuthenticationPlugin;
+use MediaWiki\Extension\LdapAuthentication\LdapPrimaryAuthenticationProvider;
 use MediaWiki\Maintenance\Maintenance;
-use MediaWiki\MediaWikiServices;
 use MediaWiki\Permissions\UltimateAuthority;
 use MediaWiki\User\User;
 
@@ -63,7 +59,7 @@ class AttachLdapUser extends Maintenance {
 		$_SESSION['wsDomain'] = $domain;
 
 		$user = User::newFromName( $ldap->LDAPUsername, 'creatable' );
-		$authManager = MediaWikiServices::getInstance()->getAuthManager();
+		$authManager = $this->getServiceContainer()->getAuthManager();
 		$status = $authManager->autoCreateUser(
 			$user,
 			LdapPrimaryAuthenticationProvider::class,
@@ -74,7 +70,7 @@ class AttachLdapUser extends Maintenance {
 
 		if ( !$status->isGood() ) {
 			$this->fatalError(
-				MediaWikiServices::getInstance()
+				$this->getServiceContainer()
 					->getFormatterFactory()
 					->getStatusFormatter( RequestContext::getMain() )
 					->getWikiText( $status )
@@ -83,5 +79,6 @@ class AttachLdapUser extends Maintenance {
 	}
 }
 
-$maintClass = AttachLdapUser::class;
-require_once RUN_MAINTENANCE_IF_MAIN;
+// @codeCoverageIgnoreStart
+return AttachLdapUser::class;
+// @codeCoverageIgnoreEnd

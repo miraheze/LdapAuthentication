@@ -14,14 +14,9 @@
 			"i18n"
 		]
 	},
-	"AutoloadClasses": {
-		"LdapAuthenticationHooks": "includes/LdapAuthenticationHooks.php",
-		"LdapAuthenticationSchemaHooks": "includes/LdapAuthenticationSchemaHooks.php",
-		"LdapAuthenticationPlugin": "includes/LdapAuthenticationPlugin.php",
-		"LdapPrimaryAuthenticationProvider": "includes/LdapPrimaryAuthenticationProvider.php"
-	},
 	"AutoloadNamespaces": {
-		"MediaWiki\\Extension\\LdapAuthentication\\": "includes/"
+		"MediaWiki\\Extension\\LdapAuthentication\\": "includes/",
+		"MediaWiki\\Extension\\LdapAuthentication\\Maintenance\\": "maintenance/"
 	},
 	"Hooks": {
 		"BlockIpComplete": "main",
@@ -30,10 +25,10 @@
 	},
 	"HookHandlers": {
 		"main": {
-			"class": "LdapAuthenticationHooks"
+			"class": "MediaWiki\\Extension\\LdapAuthentication\\Hooks"
 		},
 		"schema": {
-			"class": "LdapAuthenticationSchemaHooks"
+			"class": "MediaWiki\\Extension\\LdapAuthentication\\SchemaHooks"
 		}
 	},
 	"config_prefix": "wgLDAP",
@@ -168,6 +163,6 @@
 			"value": ""
 		}
 	},
-	"callback": "LdapAuthenticationHooks::onRegistration",
+	"callback": "MediaWiki\\Extension\\LdapAuthentication\\Hooks::onRegistration",
 	"manifest_version": 2
 }

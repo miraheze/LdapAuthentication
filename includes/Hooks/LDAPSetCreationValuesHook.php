@@ -2,7 +2,7 @@
 
 namespace MediaWiki\Extension\LdapAuthentication\Hooks;
 
-use LdapAuthenticationPlugin;
+use MediaWiki\Extension\LdapAuthentication\LdapAuthenticationPlugin;
 
 /**
  * This is a hook handler interface, see docs/Hooks.md in core.
