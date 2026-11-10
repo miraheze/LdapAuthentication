@@ -472,3 +472,6 @@ class LdapPrimaryAuthenticationProvider
 		ScopedCallback::consume( $reset );
 	}
 }
+
+/** @deprecated class alias */
+class_alias( LdapPrimaryAuthenticationProvider::class, 'LdapPrimaryAuthenticationProvider' );
